@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    <div class="alert-box" id="alert">
+        <p id="txt">알림창임</p>
+        <button onclick="alert('alert','none')">닫기</button>
+    </div>
+    <button id="btn1" onclick="alert('btn1','block')">버튼1</button>
+    <button id="btn2" onclick="alert('btn2','block')">버튼2</button>
+    <script>
+        function alert(id, sw){
+            document.getElementById('alert').style.display=sw;
+            switch(id){
+                case "btn1":
+                    document.getElementById('txt').innerHTML="아이디를 입력해주세요";
+                    break;
+                case "btn2":
+                    document.getElementById('txt').innerHTML="비밀번호를 입력해주세요";
+                    break;
+            }
+        };
+    </script>
+</body>
+</html>

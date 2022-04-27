@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    <div class="alert-box" id="alert">
+        알림창임<button onclick="closeButton()">닫기</button>
+    </div>
+    <button onclick="openButton()">
+        버튼
+    </button>
+    <script>
+        function openButton(){
+            document.getElementById('alert').style.display='block';
+        };
+
+        function closeButton(){
+            document.getElementById('alert').style.display='none';
+        };
+
+        //open과 close는 예약어 이므로 사용 X
+    </script>
+</body>
+</html>

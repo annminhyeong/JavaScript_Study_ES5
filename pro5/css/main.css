@@ -1,0 +1,19 @@
+.container{
+    margin: 0 auto;
+}
+
+.alert-box{
+    background-color: skyblue;
+    border-radius: 5px;
+    padding: 20px;
+    color: white;
+    display: none;
+}
+
+.list-group{
+    display: none;
+}
+
+.show{
+    display: block;
+}

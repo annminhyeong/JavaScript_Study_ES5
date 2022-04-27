@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+    <div class="alert-box" id="alert">
+        <p class="title1">알림창임</p>
+        <button id="close" class="title1">닫기</button>
+    </div>
+    <button id="btn1" onclick="idAlert()";>버튼1</button>
+    <button id="btn2" onclick="pwAlert()">버튼2</button>
+    <script>
+        
+        document.getElementById('close').addEventListener('mouseover', ()=>{
+            document.getElementById('alert').style.display="none";
+        });
+
+        const idAlert = ()=>{
+            document.getElementsByClassName('title1')[0].innerHTML="아이디입력";
+            document.getElementsByClassName('title1')[1].innerHTML="아이디 버튼을 바꿈";
+            document.getElementsByClassName('alert-box')[0].style.display='block';
+        };
+        
+        const pwAlert = ()=>{
+            document.getElementsByClassName('title1')[0].innerHTML="비밀번호 입력";
+            document.getElementsByClassName('title1')[1].innerHTML="비밀번호 버튼을 바꿈";
+            document.getElementsByClassName('alert-box')[0].style.display='block';
+        };
+    </script>
+</body>
+</html>
