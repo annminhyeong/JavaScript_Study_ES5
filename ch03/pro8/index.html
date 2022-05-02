@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div style="overflow: hidden;">
+        <div class="slide-container">
+            <div class="slide-box">
+                <img src="./img/car1.png" alt="img" draggable="false">    
+            </div>
+            <div class="slide-box">
+                <img src="./img/car2.png" alt="img" draggable="false">    
+            </div>
+            <div class="slide-box">
+                <img src="./img/car3.png" alt="img" draggable="false">    
+            </div>
+        </div>
+        <button class="slide-btn1">1</button>
+        <button class="slide-btn2">2</button>
+        <button class="slide-btn3">3</button>
+        <button class="next">다음</button>
+        <button class="pre">이전</button>
+
+        <script>
+            let 시작좌표 = 0;
+            let down = false;
+            $('.slide-box').eq(0).on('mousedown', function(e){
+                시작좌표 = e.clientX;
+                down = true;
+            });
+
+            $('.slide-box').eq(0).on('mouseup', function(e){
+                down = false;
+                if(e.clientX - 시작좌표 < -100){
+                    $('.slide-container').css('transition','all 1s').css('transform', 'translateX(-100vw)');
+                }else{
+                    $('.slide-container').css('transition','all 1s').css('transform', 'translateX(0vw)');
+                }
+                setTimeout(() => {
+                    $('.slide-container').css('transition','none');
+                }, 500);
+                
+            });
+
+            $('.slide-box').eq(0).on('mousemove', function(e){
+                if(down){
+                    console.log(e.clientX - 시작좌표);
+                    $('.slide-container').css('transform', `translateX(${e.clientX - 시작좌표}px)`);
+                }
+            });
+
+            //moblie
+            $('.slide-box').eq(0).on('touchstart', function(e){
+                시작좌표 = e.touches[0].clientX;
+                down = true;
+            });
+
+            $('.slide-box').eq(0).on('touchend', function(e){
+                down = false;
+                if(e.changedTouches[0].clientX - 시작좌표 < -100){
+                    $('.slide-container').css('transition','all 1s').css('transform', 'translateX(-100vw)');
+                }else{
+                    $('.slide-container').css('transition','all 1s').css('transform', 'translateX(0vw)');
+                }
+                setTimeout(() => {
+                    $('.slide-container').css('transition','none');
+                }, 500);
+                
+            });
+
+            $('.slide-box').eq(0).on('touchmove', function(e){
+                if(down){
+                    console.log(e.touches[0].clientX - 시작좌표);
+                    $('.slide-container').css('transform', `translateX(${e.clientX - 시작좌표}px)`);
+                }
+            });
+
+
+        </script>
+
+
+
+
+        <script>
+            document.querySelector('.slide-btn1').addEventListener('click',()=>{
+                document.querySelector('.slide-container').style.transform='translateX(0vw)';
+            });
+
+            $('.slide-btn2').on('click',()=>{
+                $('.slide-container').css('transform','translateX(-100vw)');
+            });
+
+            document.querySelector('.slide-btn3').addEventListener('click',()=>{
+                document.querySelector('.slide-container').style.transform='translateX(-200vw)';
+            });
+
+            let status = 1;
+            $('.next').on('click',()=>{
+                if(status === 1){
+                    $('.slide-container').css('transform','translateX(-100vw)');
+                    status++;
+                }else{
+                    $('.slide-container').css('transform','translateX(-200vw)');
+                }
+            });
+            document.querySelector('.pre').addEventListener('click',()=>{
+                if(status === 2){
+                    document.querySelector('.slide-container').style.transform='translateX(-100vw)';
+                    status--;
+                }else{
+                    document.querySelector('.slide-container').style.transform='translateX(0vw)';
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+
+        </div>
+    </div>
+    <div class="container">
+        <button class="btn btn-danger">더보기</button>
+        <button class="btn btn-danger">가격순 정렬</button>
+        <button class="btn btn-primary">다나가 정렬</button>
+        <button class="btn btn-primary">6만원 이하 상품만 보기</button>
+    </div>
+    <script>
+        var products = [
+            { id : 0, price : 70000, title : 'Blossom Dress' },
+            { id : 1, price : 50000, title : 'Springfield Shirt' },
+            { id : 2, price : 60000, title : 'Black Monastery' }
+        ];
+
+        //처음 row 3개
+        products.forEach((item)=>{
+            let tag = 
+            `<div class="col-sm-4">
+                <img src="https://via.placeholder.com/600" class="w-100">
+                <h5>${item.title}</h5>
+                <p>가격 : ${item.price}</p>
+                <button class="buy">버튼</button>
+            </div>`;
+            
+            document.querySelector('.row').insertAdjacentHTML('beforeend',tag);
+        });
+        // let arr = [1,2,3,4,5];
+        // let newArr = JSON.stringify(arr);
+        // localStorage.setItem('num', newArr);
+        // localStorage.getItem('num');
+        //console.log(JSON.parse(newArr)[0]);
+        //localStorage.removeItem('이름');
+
+        $('.buy').click(function(e){
+            let title = $(e.target).siblings('h5').html();
+            if(localStorage.getItem('cart') != null){
+                let 중복 = JSON.parse(localStorage.cart);
+                let 중복채크 = 0;
+                for(let i=0; i<중복.length; i++){
+                    if(title === 중복[i]){
+                        중복체크 = 1;
+                    }
+                }
+                if(중복채크 == 0){
+                    console.log(중복체크);
+                    let 꺼낸거 = JSON.parse(localStorage.cart);
+                    꺼낸거.push(title);
+                    localStorage.setItem('cart',JSON.stringify(꺼낸거));
+                }
+            }else{
+                localStorage.setItem('cart', JSON.stringify([title]));
+            }
+
+        });
+
+
+
+
+        //더보기
+        let count = 0;
+        let urlBox =['https://codingapple1.github.io/js/more1.json','https://codingapple1.github.io/js/more2.json'];
+        document.querySelector('.btn-danger').addEventListener('click',function(){
+            if(count <2){
+                fetch(urlBox[count])
+                .then(res => res.json())
+                .then((data)=>{
+                    console.log(data);
+                    data.forEach((item)=>{
+                        let tag = 
+                        `<div class="col-sm-4">
+                            <img src="https://via.placeholder.com/600" class="w-100">
+                            <h5>${item.title}</h5>
+                            <p>가격 : ${item.price}</p>
+                        </div>`;
+                        document.querySelector('.row').insertAdjacentHTML('beforeend', tag);
+                    });
+                })
+                .catch(err=>console.log('에러'));
+                count++;
+            }
+            if(count == urlBox.length){
+                document.querySelector('.btn-danger').style.display='none';
+            }
+        });
+        
+        //가격순 정렬
+        document.querySelectorAll('.btn-danger')[1].addEventListener('click',function(){
+
+            products.sort((a,b)=>a.price - b.price);
+            let tag = "";
+            products.forEach((item)=>{
+                tag += 
+                `<div class="col-sm-4">
+                    <img src="https://via.placeholder.com/600" class="w-100">
+                    <h5>${item.title}</h5>
+                    <p>가격 : ${item.price}</p>
+                </div>`;
+            });
+            document.querySelector('.row').innerHTML=tag;
+        });
+
+        //다나가 정렬
+        document.querySelector('.btn-primary').addEventListener('click',()=>{
+            products.sort((a, b)=>{
+                if( a.title < b.title){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            });
+
+            let tag = "";
+            products.forEach((item)=>{
+                tag += 
+                `<div class="col-sm-4">
+                    <img src="https://via.placeholder.com/600" class="w-100">
+                    <h5>${item.title}</h5>
+                    <p>가격 : ${item.price}</p>
+                </div>`;
+            });
+            document.querySelector('.row').innerHTML=tag;
+        });
+
+        //6만원 이하 상품만 보기
+        document.querySelectorAll('.btn-primary')[1].addEventListener('click',()=>{
+            let newPro = products.filter((a)=>{
+                return a.price <= 60000;
+            });
+
+            let tag = "";
+            newPro.forEach((item)=>{
+                tag += 
+                `<div class="col-sm-4">
+                    <img src="https://via.placeholder.com/600" class="w-100">
+                    <h5>${item.title}</h5>
+                    <p>가격 : ${item.price}</p>
+                </div>`;
+            });
+            document.querySelector('.row').innerHTML=tag;
+        });
+
+        //필터
+        let 어레이 = [7,3,5,13,64,324];
+        let 필터어레이 = 어레이.filter((a)=>{
+            return a < 4;
+        });
+
+        let 맵어레이 = 어레이.map((a)=>{
+            return a * 4;
+        });
+
+        console.log(필터어레이);
+        console.log(맵어레이);
+
+    </script>
+</body>
+</html>

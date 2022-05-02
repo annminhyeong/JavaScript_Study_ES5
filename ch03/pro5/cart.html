@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>장바구니 페이지</div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart'));
+        cart.forEach((item)=>{
+            let tag = `<p>${item}</p>`;
+            document.querySelector('body').insertAdjacentHTML('beforeend',tag);
+        });
+
+    </script>
+</body>
+</html>
